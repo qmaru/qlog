@@ -11,6 +11,7 @@ import (
 func Logger(logfile string) (gin.HandlerFunc, error) {
 	log := base.NewLog()
 	log.SetOutput(logfile)
+	log.SetTimeFormat("2006-01-02 15:04:05")
 
 	logger, err := log.New()
 	if err != nil {

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/qmaru/qlog/base"
-	"github.com/qmaru/qlog/log/console"
+	"github.com/qmaru/qlog/console"
 )
 
 func TestBase(t *testing.T) {
@@ -17,7 +17,7 @@ func TestBase(t *testing.T) {
 }
 
 func TestConsole(t *testing.T) {
-	logger, err := console.NewConsoleLogger("test", "")
+	logger, err := console.New("test", "")
 	if err != nil {
 		t.Fatal(err)
 	}
