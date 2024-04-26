@@ -14,6 +14,9 @@ type ConsoleLogger struct {
 func New(user, output string) (*ConsoleLogger, error) {
 	log := base.NewLog()
 	log.SetTimeFormat("2006-01-02 15:04:05")
+	if output != "" {
+		log.SetOutput(output)
+	}
 
 	logger, err := log.New()
 	if err != nil {
