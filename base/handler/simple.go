@@ -25,15 +25,23 @@ func (h *SimpleHandler) Handle(ctx context.Context, r slog.Record) error {
 	l := r.Level.String()
 	m := r.Message
 
-	o := make([]string, r.NumAttrs()-1)
+	o := make(map[string]any, r.NumAttrs())
 	r.Attrs(func(a slog.Attr) bool {
-		key := a.Key
-		value := a.Value.String()
-		o = append(o, key, value)
+		o[a.Key] = a.Value.Any()
 		return true
 	})
 
-	fmt.Printf("%s %s %s %s\n", t, l, m, strings.Join(o, " "))
+	q := make([]string, 0)
+	for k, v := range o {
+		vs := fmt.Sprintf("%v", v)
+		if k != "!BADKEY" {
+			q = append(q, k, vs)
+		} else {
+			q = append(q, vs)
+		}
+	}
+
+	fmt.Printf("%s %s Message: %s %s\n", t, l, m, strings.Join(q, " "))
 	return nil
 }
 
