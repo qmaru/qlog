@@ -33,15 +33,10 @@ func (h *SimpleHandler) Handle(ctx context.Context, r slog.Record) error {
 
 	q := make([]string, 0)
 	for k, v := range o {
-		vs := fmt.Sprintf("%v", v)
-		if k != "!BADKEY" {
-			q = append(q, k, vs)
-		} else {
-			q = append(q, vs)
-		}
+		q = append(q, fmt.Sprintf("%s=%v", k, v))
 	}
 
-	fmt.Printf("%s %s Message: %s %s\n", t, l, m, strings.Join(q, " "))
+	fmt.Printf("%s - %s - %s %s\n", t, l, m, strings.Join(q, ","))
 	return nil
 }
 
